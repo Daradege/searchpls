@@ -1,11 +1,18 @@
-from flask import Flask
+from flask import Flask, render_template, redirect, request
 
 app = Flask(__name__)
 
+@app.errorhandler(404)
+def page_not_found(error):
+    return render_template('index.html')
+
 @app.route('/')
 def home():
-    return 'Hello, World!'
+    if request.args.get('q'):
+        return render_template('search.html', q=request.args.get('q'))
+    return render_template('index.html')
 
-@app.route('/about')
-def about():
-    return 'About'
+@app.route('/search')
+def search():
+    q = request.args.get('q')
+    return redirect(f'https://google.com/search?q={q}')

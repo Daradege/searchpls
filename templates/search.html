@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+        
+        body {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: flex-end;
+            padding: 20px;
+            align-items: center;
+            height: 60px;
+        }
+        
+        .header a {
+            margin-right: 15px;
+            color: rgba(0,0,0,0.87);
+            text-decoration: none;
+            font-size: 13px;
+        }
+        
+        .header a:hover {
+            text-decoration: underline;
+        }
+        
+        .profile-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background-color: #8ab4f8;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        
+        .main {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .logo-container {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .logo {
+            font-size: 90px;
+            font-weight: 500;
+            color: #4285f4;
+            margin-bottom: 20px;
+        }
+        
+        .logo span:nth-child(1) { color: #4285f4; }
+        .logo span:nth-child(2) { color: #ea4335; }
+        .logo span:nth-child(3) { color: #fbbc05; }
+        .logo span:nth-child(4) { color: #4285f4; }
+        .logo span:nth-child(5) { color: #34a853; }
+        .logo span:nth-child(6) { color: #ea4335; }
+        
+        .search-container {
+            width: 100%;
+            max-width: 584px;
+            margin: 0 auto;
+        }
+        
+        .search-box {
+            width: 100%;
+            height: 44px;
+            border: 1px solid #dfe1e5;
+            border-radius: 24px;
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .search-box:hover, .search-box:focus-within {
+            box-shadow: 0 1px 6px rgba(32, 33, 36, 0.28);
+            border-color: rgba(223, 225, 229, 0);
+        }
+        
+        .search-icon {
+            color: #9aa0a6;
+            margin-left: 15px;
+            font-size: 20px;
+        }
+        
+        .mic-icon {
+            color: #4285f4;
+            margin-right: 15px;
+            font-size: 20px;
+            cursor: pointer;
+        }
+        
+        .camera-icon {
+            color: #4285f4;
+            margin-right: 15px;
+            font-size: 20px;
+            cursor: pointer;
+        }
+        
+        input[type="text"] {
+            flex: 1;
+            height: 100%;
+            border: none;
+            outline: none;
+            font-size: 16px;
+        }
+        
+        .buttons {
+            display: flex;
+            justify-content: center;
+            margin-top: 10px;
+        }
+        
+        button {
+            margin: 0 4px;
+            background-color: #f8f9fa;
+            border: 1px solid #f8f9fa;
+            border-radius: 4px;
+            color: #3c4043;
+            font-size: 14px;
+            padding: 10px 16px;
+            cursor: pointer;
+        }
+        
+        button:hover {
+            box-shadow: 0 1px 1px rgba(0,0,0,.1);
+            background-color: #f8f9fa;
+            border: 1px solid #dadce0;
+            color: #202124;
+        }
+        
+        .footer {
+            background-color: #f2f2f2;
+            padding: 15px;
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            max-width: 1200px;
+            margin: 0 auto;
+            color: #70757a;
+            font-size: 14px;
+        }
+        
+        .footer-links {
+            display: flex;
+        }
+        
+        .footer-links a {
+            margin-left: 15px;
+            color: #70757a;
+            text-decoration: none;
+        }
+        
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+        
+        .button-click {
+            transform: scale(0.95);
+            transition: transform 0.1s;
+        }
+
+        .cursor {
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="black" d="M13,1.07V9h7a1,1,0,0,1,.93.64,1,1,0,0,1-.25,1.09L11.93,22.94A1,1,0,0,1,10,22.13V14H3a1,1,0,0,1-.93-.64,1,1,0,0,1,.25-1.09L11.07,1.07A1,1,0,0,1,13,1.07Z"/></svg>');
+            pointer-events: none;
+            z-index: 9999;
+            transition: transform 0.2s ease;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="cursor" id="cursor"></div>
+    
+    <div class="header">
+        <p>لطفا قبل از اینکه از دوستاتون سوالی بکنید، سرچش کنید :)</p>
+    </div>
+    
+    <div class="main">
+        <div class="logo-container">
+            <div class="logo">
+                <span>G</span><span>o</span><span>o</span><span>g</span><span>l</span><span>e</span>
+            </div>
+        </div>
+        
+        <div class="search-container">
+            <form id="search-form" action="https://www.google.com/search" method="get">
+                <div class="search-box">
+                    <div class="search-icon">🔍</div>
+                    <input type="text" id="search-input" name="q" autocomplete="off">
+                    <div class="mic-icon">🎤</div>
+                    <div class="camera-icon">📷</div>
+                </div>
+                <div class="buttons">
+                    <button type="submit" id="search-button">جستجوی Google</button>
+                    <button type="button" onclick="window.location.href = 'https://daradege.ir';">سازنده</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <div class="footer">
+        <div class="footer-content">
+            برای کسایی که به جای جستجو در اینترنت از بقیه سوال میکنن :)
+        </div>
+    </div>
+
+    <script>
+        
+        function getQueryParam(param) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(param);
+        }
+        
+        
+        function typeWriter(text, element, speed = 200) {
+            let i = 0;
+            element.value = '';
+            
+            function type() {
+                if (i < text.length) {
+                    element.value += text.charAt(i);
+                    i++;
+                    setTimeout(type, speed);
+                } else {
+                    
+                    moveMouseAndClick();
+                }
+            }
+            
+            if (text) {
+                type();
+            }
+        }
+        
+        
+        function moveMouseAndClick() {
+            const cursor = document.getElementById('cursor');
+            const button = document.getElementById('search-button');
+            const buttonRect = button.getBoundingClientRect();
+            
+            
+            cursor.style.display = 'block';
+            
+            
+            const startX = window.innerWidth / 2;
+            const startY = window.innerHeight / 2;
+            cursor.style.left = startX + 'px';
+            cursor.style.top = startY + 'px';
+            
+            
+            const targetX = buttonRect.left + buttonRect.width / 2;
+            const targetY = buttonRect.top + buttonRect.height / 2;
+            
+            
+            setTimeout(() => {
+                cursor.style.transition = 'left 1s ease, top 1s ease';
+                cursor.style.left = targetX + 'px';
+                cursor.style.top = targetY + 'px';
+                
+                
+                setTimeout(() => {
+                    
+                    button.classList.add('button-click');
+                    setTimeout(() => {
+                        button.classList.remove('button-click');
+                        
+                        
+                        setTimeout(() => {
+                            const query = document.getElementById('search-input').value;
+                            window.location.href = `https://www.google.com/search?q=${encodeURIComponent(query)}`;
+                        }, 300);
+                    }, 150);
+                }, 1000);
+            }, 500);
+        }
+        
+        
+        window.onload = function() {
+            const searchQuery = getQueryParam('q');
+            const searchInput = document.getElementById('search-input');
+            
+            if (searchQuery) {
+                
+                typeWriter(searchQuery, searchInput);
+            }
+        };
+    </script></body>
+</html>
